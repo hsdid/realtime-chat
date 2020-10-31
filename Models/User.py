@@ -1,4 +1,4 @@
-from Models.db import db
+from app import db
 
 class User(db.Model):
 
@@ -8,4 +8,7 @@ class User(db.Model):
     username = db.Column(db.String(25), unique=True, nullable=False)
     password = db.Column(db.String(), nullable=False)
 
-    db.create_all()
+    # def __init__(self, username, password):
+    #     self.username = username
+    #     self.password = password
+

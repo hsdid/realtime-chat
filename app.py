@@ -1,9 +1,10 @@
+from time import localtime, strftime
 from flask import Flask,redirect,url_for
 from flask_sqlalchemy import SQLAlchemy
 from Controllers.PageController import *
 from Controllers.UserController import *
 from Controllers.ChatController import *
-from flask_socketio import SocketIO,send,emit
+from flask_socketio import SocketIO,send,emit,join_room,leave_room
 
 
 
@@ -25,7 +26,12 @@ else:
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 db = SQLAlchemy(app)
+#Initialize Flask-SocketIO
 socketio = SocketIO(app)
+
+ROOMS = ["room 1", "room 2", "room 3", "room 4"]
+
+
 
 def is_logged_in(f):
     @wraps(f)
@@ -65,20 +71,40 @@ def home():
     return home_page()
 
 
-@app.route('/home/<string:receiver_id>', methods=['POST','GET'])
+#@app.route('/home/<string:receiver_id>', methods=['POST','GET'])
+@app.route('/home/rooms', methods=['POST','GET'])
 @is_logged_in
-def user_chat(receiver_id):
-    return home_msg(receiver_id)
+def user_chat():
+
+    return ROOMS[1]
+    #return home_msg(receiver_id)
 
 # @app.route('/home/send_msg', methods=['POST','GET'])
 # def send_msg():
 #     sending_msg()
 
+
+
 @socketio.on('message')
 def message(data):
-    # print(f"\n\n{data}\n\n")
-    send(data)
+    print(f"\n\n{data}\n\n")
 
+    #sending mesage to all client that connect
+    send({'msg':data['msg'], 'username':data['username'], 'time_stamp':
+          strftime('%b-%d %I:%M%p', localtime())}, room=data['room'])
+
+
+@socketio.on('join')
+def join(data):
+
+    join_room(data['room'])
+    send({'msg': data['username'] + " has joined the " + data['room'] + " room "}, room=data['room'])
+
+@socketio.on('leave')
+def leave(data):
+
+    leave_room(data['room'])
+    send({'msg': data['username'] + " has left the " + data['room'] + " room "}, room=data['room'])
 
 if __name__ == "__main__":
 

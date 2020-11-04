@@ -19,14 +19,24 @@
 					<div class="card-body contacts_body">
 						<ui class="contacts">
 
-							{% for user in users %}
+<!--							{% for user in users %}-->
+<!--								<li>-->
+<!--									<div class="d-flex bd-highlight">-->
+<!--										<div class="user_info">-->
+
+<!--&lt;!&ndash;											<a href="{{ url_for('home', receiver_id=user.id) }}"><span>{{user.username}}</span></a>&ndash;&gt;-->
+<!--											<a href="/home/{{user.id}}"><span>{{user.username}}</span></a>-->
+<!--											<p>online</p>-->
+<!--										</div>-->
+<!--									</div>-->
+<!--								</li>-->
+<!--							{% endfor %}-->
+<!--							Rooms-->
+							{% for room in rooms %}
 								<li>
 									<div class="d-flex bd-highlight">
 										<div class="user_info">
-
-<!--											<a href="{{ url_for('home', receiver_id=user.id) }}"><span>{{user.username}}</span></a>-->
-											<a href="/home/{{user.id}}"><span>{{user.username}}</span></a>
-											<p>online</p>
+											{{room}}
 										</div>
 									</div>
 								</li>
@@ -42,7 +52,7 @@
 							<div class="d-flex bd-highlight">
 
 								<div class="user_info">
-									<span>Chat with {{user_msg}}</span>
+									<span id="room">Chat </span>
 									<p>1767 Messages</p>
 								</div>
 								<div class="video_cam">
@@ -61,30 +71,33 @@
 							</div>
 						</div>
 <!--						message area-->
-						<div class="card-body msg_card_body">
+						<div id="msg" class="card-body msg_card_body">
 
 <!--							display messages -->
+								{{username}}
+							<div class="d-flex justify-content-start mb-4">
 
-							<div class="d-flex justify-content-end mb-4">
-								<div class="msg_cotainer_send">
-									Ok, thank you have a good day
-									<span class="msg_time_send">9:10 AM, Today</span>
+								<div class="msg_cotainer">
+
+									Hey this is the default chat
+
+									<span class="msg_time">9:12 AM, Today</span>
 								</div>
-
 							</div>
 							<div class="d-flex justify-content-start mb-4">
 
 								<div class="msg_cotainer">
-									Bye, see you
+									 choose your chat room
+
 									<span class="msg_time">9:12 AM, Today</span>
 								</div>
 							</div>
 
 
 						</div>
-<!--						writing from -->
+
 						<div class="card-footer">
-<!--                            <form action="home/send_msg" method="POST">-->
+
                                 <div class="input-group">
 
                                     <div class="input-group-append">
@@ -100,11 +113,17 @@
                                     </div>
 
                                 </div>
-<!--                            </form>-->
+
 						</div>
 					</div>
 				</div>
 			</div>
+
+<script type="text/javascript">
+	const username = `{{session['username']}}`;
+</script>
+
+
 <!--			SocketIO JS-->
 			<script src="//cdnjs.cloudflare.com/ajax/libs/socket.io/2.2.0/socket.io.js" integrity="sha256-yr4fRk/GU1ehYJPAs8P4JlTgu0Hdsp4ZKrx8bDEDC3I=" crossorigin="anonymous"></script>
 <!--			<script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/1.7.3/socket.io.min.js"></script>-->

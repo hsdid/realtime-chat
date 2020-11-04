@@ -3,7 +3,7 @@ from functools import wraps
 from passlib.hash import sha256_crypt
 from Models.User import *
 
-from app import db, socketio, send, emit
+from app import db, socketio, send, emit,ROOMS
 from Controllers.UserController import *
 
 # Check if user logged in
@@ -62,7 +62,8 @@ def login_page():
                 session['username'] = username
                 session['user_id'] = user_id
 
-                return redirect(url_for('home', msg=msg))
+
+                return render_template('home.html', msg=msg, rooms=ROOMS)
 
             else:
 
@@ -86,18 +87,14 @@ def index_page():
 
 def home_page():
     users = get_users()
-    return render_template('home.html',users=users)
+    return render_template('home.html',users=users,rooms=ROOMS)
 
-def home_msg(receiver_id):
-    users = get_users()
-    session['receiver_id'] = receiver_id
-    user_msg = get_user(receiver_id)
+# def home_msg(receiver_id):
+#     users = get_users()
+#     session['receiver_id'] = receiver_id
+#     user_msg = get_user(receiver_id)
+#
+#     return render_template('home.html',users=users,user_msg=user_msg)
 
-    return render_template('home.html',users=users,user_msg=user_msg)
 
-# @socketio.on('message')
-# def message(data):
-#     print(f"\n\n{data}\n\n")
-#     send(data)
-#     emit('some-event', 'this is a custom event message')
 

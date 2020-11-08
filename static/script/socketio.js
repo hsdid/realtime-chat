@@ -8,14 +8,14 @@ document.addEventListener('DOMContentLoaded', ()=> {
 
     // Display incoming message
     socket.on('message', data => {
-        //        const p = document.createElement('p');
-        //        const br = document.createElement('br')
+
+
         const msg_body = document.querySelector("#msg");
         if (typeof data.username === 'undefined') {
             printSysMsg(data.msg)
         } else if  (data.username == username) {
              msg_body.insertAdjacentHTML("beforeend",`<div class="d-flex justify-content-end mb-4">
-                                                       <div class="msg_cotainer_send">
+                                                       <div class="msg_cotainer_send message">
                                                             ${data.msg}
                                                             <span class="msg_time_send">${data.time_stamp}</span>
                                                         </div>
@@ -23,7 +23,7 @@ document.addEventListener('DOMContentLoaded', ()=> {
 
         } else if (data.username != username ) {
             msg_body.insertAdjacentHTML("beforeend",`<div class="d-flex justify-content-start mb-4">
-                                                       <div class="msg_cotainer">
+                                                       <div class="msg_cotainer message">
                                                             ${data.msg}
                                                             <span class="msg_time_send">${data.time_stamp}</span>
                                                         </div>
@@ -31,7 +31,10 @@ document.addEventListener('DOMContentLoaded', ()=> {
 
         }
 
-        console.log(data)
+
+        //Automatically scroll down chat after display msg
+        msg_body.scrollTop = msg_body.scrollHeight;
+
     });
 
 
@@ -54,19 +57,41 @@ document.addEventListener('DOMContentLoaded', ()=> {
     document.querySelectorAll('.user_info').forEach(div => {
         div.onclick = () => {
 
-//            //change chat room name
-//            document.querySelector('#room').innerHTML.replace = div.innerHTML;
-//            console.log(div.innerHTML);
+            //change chat room name
+            document.querySelector('#chats').innerHTML = div.innerHTML;
+
 
             let newRoom = div.innerHTML;
             if (newRoom == room) {
                 msg = `You are already in ${room} room`
+
                 printSysMsg(msg);
             } else {
                 leaveRoom(room);
                 joinRoom(newRoom);
                 room = newRoom;
             }
+
+            var y = window.matchMedia("(max-width: 500px)")
+
+            var x = document.getElementById("rooms_area");
+            var z = document.getElementById("message_area");
+            // if max-width: 500px add function toggle hide/show rooms-area
+            if(y.matches) {
+
+
+                 if (x.style.display === "none") {
+
+                    x.style.display = "block";
+                    z.style.display = "none";
+                  } else {
+
+                    x.style.display = "none";
+                    z.style.display = "block";
+                  }
+
+            }
+
         }
 
 

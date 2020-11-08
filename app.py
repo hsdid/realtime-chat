@@ -31,8 +31,6 @@ socketio = SocketIO(app)
 
 ROOMS = ["room 1", "room 2", "room 3", "room 4"]
 
-
-
 def is_logged_in(f):
     @wraps(f)
     def wrap(*args, **kwargs):
@@ -45,19 +43,19 @@ def is_logged_in(f):
 
     return wrap
 
-@app.route('/', methods=['POST','GET'])
-
-def index():
-    return index_page()
-
 @app.route('/login', methods=['GET','POST'])
+
 def login():
+    if 'logged_in' in session:
+        return home_page()
 
     return login_page()
 
 
-@app.route('/register', methods=['GET','POST'])
+@app.route('/', methods=['GET','POST'])
 def register():
+    if 'logged_in' in session:
+        return home_page()
     return register_page()
 
 @app.route('/logout')
@@ -70,29 +68,22 @@ def home():
 
     return home_page()
 
-
-#@app.route('/home/<string:receiver_id>', methods=['POST','GET'])
 @app.route('/home/rooms', methods=['POST','GET'])
 @is_logged_in
 def user_chat():
 
     return ROOMS[1]
-    #return home_msg(receiver_id)
-
-# @app.route('/home/send_msg', methods=['POST','GET'])
-# def send_msg():
-#     sending_msg()
-
 
 
 @socketio.on('message')
 def message(data):
+
     print(f"\n\n{data}\n\n")
 
     #sending mesage to all client that connect
     send({'msg':data['msg'], 'username':data['username'], 'time_stamp':
-          strftime('%b-%d %I:%M%p', localtime())}, room=data['room'])
-
+          strftime('%I:%M%p', localtime())}, room=data['room'])
+# %b-%d %I:%M%p
 
 @socketio.on('join')
 def join(data):

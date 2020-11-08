@@ -11,8 +11,6 @@ from Controllers.UserController import *
 
 def register_page():
 
-
-
     #if reg_form.validate_on_submit():
     if request.method == 'POST':
         username = request.form['username']
@@ -88,13 +86,6 @@ def index_page():
 def home_page():
     users = get_users()
     return render_template('home.html',users=users,rooms=ROOMS)
-
-# def home_msg(receiver_id):
-#     users = get_users()
-#     session['receiver_id'] = receiver_id
-#     user_msg = get_user(receiver_id)
-#
-#     return render_template('home.html',users=users,user_msg=user_msg)
 
 
 

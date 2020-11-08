@@ -2,8 +2,11 @@ body,html{
 			height: 100%;
 			margin: 0;
 			background: #7F7FD5;
+			/*background: #FC6A8F; */
+			/*background: #07E4D2; */
+			/*background: #22C6E3; */
 	        background: -webkit-linear-gradient(to right, #91EAE4, #86A8E7, #7F7FD5);
-	        background: linear-gradient(to right, #91EAE4, #86A8E7, #7F7FD5);
+	       /* background: linear-gradient(to right, #91EAE4, #86A8E7, #7F7FD5); */
 		}
 
 
@@ -32,11 +35,9 @@ body,html{
 
 		}
 
-		.message{
-
-		    max-width: 80%
-
-		}
+        .nav-color{
+        background-color: rgba(0,0,0,0.4)
+        }
 
 
 		.card-header{
@@ -107,20 +108,21 @@ body,html{
 
 
          .rooms_name{
-
+                font-size:17px;
+                cursor:pointer;
         }
 
-        .user_info{
+        .room_info{
             margin-top: auto;
             margin-bottom: auto;
             margin-left: 15px;
         }
-        .user_info span{
+        .room_info span{
             font-size: 20px;
             color: white;
         }
-        .user_info p{
-        font-size: 10px;
+        .room_info p{
+        font-size: 13px;
         color: rgba(255,255,255,0.6);
         }
         .video_cam{
@@ -212,41 +214,39 @@ body,html{
 
 
         }
-
+/*
         @media only screen and (max-width: 576px){
             .contacts_card{
-               /* margin-bottom: 15px !important; */
+                margin-bottom: 15px !important;
             }
             .card{
                 font-size: 13px;
             }
-        }
-      /*  @media only screen and (max-device-width: 400px) {
-               .msg_card_body{
-                font-size: 11px;
-            }
-            .card{
-                font-size: 11px;
-
-            }
-            #rooms_area{
-             position: absolute;
-             display: none ;
-
-            }
         } */
+
         @media only screen and (max-width: 500px){
             .msg_card_body{
-                font-size: 11px;
+                font-size: 13px;
             }
             .card{
-                font-size: 11px;
+                font-size: 13px;
 
             }
             #rooms_area{
              position: absolute;
              display: none ;
 
+            }
+            .rooms_name{
+                color: #fff;
+
+
+            }
+
+        }
+        @media only screen and (min-height: 700px) and  (max-width: 500px) {
+            .card {
+                height: 640px;
             }
 
         }

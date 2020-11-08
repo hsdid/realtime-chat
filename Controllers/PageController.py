@@ -29,7 +29,7 @@ def register_page():
 
         password = sha256_crypt.encrypt(str(password))
 
-        user = User.User(username=username, password=password)
+        user = User.User(username=username, password=password, color='1')
         db.session.add(user)
         db.session.commit()
         # msg = "Acount created, login here :)"
@@ -53,16 +53,15 @@ def login_page():
         if user_object:
             if sha256_crypt.verify(password_candidate,user_object.password):
 
-                msg = 'logged successfully'
-                user_id = user_object.id
 
+                user_id = user_object.id
+                color = user_object.color
                 session['logged_in'] = True
                 session['username'] = username
                 session['user_id'] = user_id
 
 
-                return render_template('home.html', msg=msg, rooms=ROOMS)
-
+                return redirect(url_for('home',rooms=ROOMS, color=color))
             else:
 
                 error = 'Wrong password'
@@ -79,13 +78,18 @@ def logout_def():
     flash('You are now logged out', 'success')
     return redirect(url_for('login'))
 
-def index_page():
-
-    return render_template('index.html')
 
 def home_page():
-    users = get_users()
-    return render_template('home.html',users=users,rooms=ROOMS)
+    # users = get_users()
+    user_object = User.User.query.filter_by(username=session['username']).first()
+
+    if request.method == 'POST':
+        # return request.form.get('color')
+        user_object.color = request.form.get('colors')
+        db.session.commit()
+
+    return render_template('home.html', rooms=ROOMS, color=user_object.color)
+
 
 
 

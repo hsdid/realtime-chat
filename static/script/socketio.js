@@ -42,6 +42,7 @@ document.addEventListener('DOMContentLoaded', ()=> {
 
     // Send message on click enter
     document.addEventListener('keypress', (e) => {
+        console.log(rooms);
         if (e.key === 'Enter') {
 
             sendMsg()
@@ -54,7 +55,7 @@ document.addEventListener('DOMContentLoaded', ()=> {
     }
 
     //Room selection
-    document.querySelectorAll('.user_info').forEach(div => {
+    document.querySelectorAll('.room_info').forEach(div => {
         div.onclick = () => {
 
             //change chat room name
@@ -131,3 +132,20 @@ document.addEventListener('DOMContentLoaded', ()=> {
     }
 
 })
+
+
+
+//        const search_room = document.querySelector('#search_room');
+//        search_room.addEventListener('change', updateValue);
+//
+//
+//
+////        find_user: '',
+////        users: []
+////             filteredList(){
+////                    return this.users.filter(user => {
+////                        return user.name.toLowerCase().includes(this.find_user.toLowerCase());
+////                    });
+////            }
+////        },
+

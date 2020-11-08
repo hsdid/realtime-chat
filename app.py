@@ -70,7 +70,7 @@ def home():
 
 @app.route('/home/rooms', methods=['POST','GET'])
 @is_logged_in
-def user_chat():
+def rooms():
 
     return ROOMS[1]
 

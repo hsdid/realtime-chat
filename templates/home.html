@@ -11,7 +11,7 @@
 					<div class="card mb-sm-3 mb-md-0 contacts_card">
 						<div class="card-header">
 							<div class="input-group">
-								<input type="text" placeholder="Search..." name="" class="form-control search">
+								<input type="text" placeholder="Search..." id="search_room" class="form-control search">
 								<div class="input-group-prepend">
 									<span class="input-group-text search_btn"><i class="fas fa-search"></i></span>
 								</div>
@@ -19,13 +19,13 @@
 						</div>
 	<!--					your friend  Room selection-->
 
-						<div class="card-body contacts_body">
+						<div class="card-body contacts_body " style="text-align: center;">
 							<ui class="contacts">
 
 								{% for room in rooms %}
-									<li>
-										<div class="d-flex bd-highlight">
-											<div class="user_info">
+									<li >
+										<div class="d-flex bd-highlight rooms_name" >
+											<div class="room_info" >
 												{{room}}
 											</div>
 										</div>
@@ -43,14 +43,32 @@
 						<div class="card-header msg_head">
 							<div class="d-flex bd-highlight">
 
-								<div class="user_info">
+								<div class="room_info">
 									<span >Chat  </span><span id="chats"> </span>
 <!--									<p>1767 Messages</p>-->
 								</div>
-								<div class="video_cam">
+								<div class="video_cam ml-auto" >
 
 									<span id="pick_room">Rooms <i class="fas fa-angle-down"></i></span>
 								</div>
+								<div id="pick_color">
+
+
+
+									<form method="POST" >
+										<select class="custom-select custom-select-sm" id="color" name="colors">
+										  <option value="0">One</option>
+										  <option value="1">Two</option>
+										  <option value="2">Three</option>
+										  <option value="3">Four</option>
+
+										</select>
+										<input type="submit" name="submit"/>
+									</form>
+
+
+								</div>
+
 							</div>
 
 						</div>
@@ -89,8 +107,6 @@
                                     </div>
     										<textarea name="msg" id="user_message" class="form-control type_msg" placeholder="Type your message..."></textarea>
 
-<!--										<input name="msg" type="text" id="user_message" class="form-control type_msg" placeholder="Type your message..." required>-->
-
                                     <div class="input-group-append">
 
 										<button type="submit" id="send_message" class="input-group-text send_btn"> <i class="fas fa-location-arrow"></i></button>
@@ -106,7 +122,8 @@
 <script type="text/javascript">
 
 	const username = `{{session['username']}}`;
-
+	var rooms = `{{rooms|e}}`
+	var color = `{{color}}`
 </script>
 
 

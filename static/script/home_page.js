@@ -23,16 +23,26 @@ document.querySelector('#pick_room').onclick = (e) => {
 
           }
 
-          else if (x.style.display === "none") {
-            x.style.display = "block";
-
-          } else {
-            x.style.display = "none";
-
-          }
+//          else if (x.style.display === "none") {
+//            x.style.display = "block";
+//
+//          } else {
+//            x.style.display = "none";
+//
+//          }
 
     }
+//color pallet
+var colors = ["#7F7FD5","#22C6E3","#07E4D2","#FC6A8F"]
 
+
+document.body.style.background = colors[color];
+
+// chat color picker
+document.querySelector('#pick_color').onchange = (e) => {
+    var i = document.querySelector('#color').value
+     document.body.style.background = colors[i];
+}
 
 
 })

@@ -39,6 +39,13 @@ body,html{
         background-color: rgba(0,0,0,0.4)
         }
 
+        .heder_text{
+            font-size: 20px;
+            color: white;
+            margin-top: auto;
+            margin-bottom: auto;
+            margin-left: 15px;
+        }
 
 		.card-header{
 			border-radius: 15px 15px 0 0 !important;
